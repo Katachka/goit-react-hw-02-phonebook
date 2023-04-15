@@ -4,7 +4,7 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import Filter from './Filter/Filter';
-
+import Message from './Message/Message';
 
 export const App = class App extends Component {
   state = {
@@ -53,27 +53,32 @@ export const App = class App extends Component {
 
  
   render() {
-    const { contacts } = this.state;
     const { filter } = this.state;
+    const addContact = this.addContact;
+    const changeFilter = this.changeFilter;
     const filtredContacts = this.filtredContacts();
+    const deleteContact = this.deleteContact;
+    const length = this.state.contacts.length;
 
 
     return (
       <div>
       <h1>Phonebook</h1>
-        <ContactForm onSubmit={this.addContact} />
+        <ContactForm onSubmit={addContact} />
       
       <h2>Contacts</h2>
-        <ContactList
-          contacts={contacts}
-          onDeleteContact={this.deleteContact} />
-    
-        <Filter filter={filter} changeFilter={this.changeFilter} />
-        <ContactList
-          contacts={filtredContacts}
-          onDeleteContact={this.deleteContact}
-        />
-      </div>);
+          <Filter filter={filter} changeFilter={changeFilter} />
+        {length > 0 ? (
+          <ContactList
+            contacts={filtredContacts}
+            onDeleteContact={deleteContact}
+          />
+        ) : (
+          <Message text="Contact list is empty." />
+        )}
+       
+      </div>
+    );
     
 }
 
