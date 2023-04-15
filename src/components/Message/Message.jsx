@@ -1,9 +1,14 @@
-function Message({ text }) {
+import PropTypes from 'prop-types';
+import { Wrapper, Text } from './Message.styled';
+
+export const Message = ({ text }) => {
   return (
-    <div>
-      <p>{text}</p>
-    </div>
+    <Wrapper>
+      <Text>{text}</Text>
+    </Wrapper>
   );
 }
 
-export default Message;
+Message.propTypes = {
+  text: PropTypes.string.isRequired,
+};
