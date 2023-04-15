@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import ContactForm from './ContactForm/ContactForm';
+import ContactList from './ContactList/ContactList';
 
 
 export const App = class App extends Component {
@@ -25,11 +26,23 @@ export const App = class App extends Component {
       }));
   };
 
+   deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
  
   render() {
-    return (<div>
+    const { contacts } = this.state;
+    return (
+      <div>
       <h1>Phonebook</h1>
-  <ContactForm onSubmit={this.addContact} />
+        <ContactForm onSubmit={this.addContact} />
+        
+
+        <h2>Contacts</h2>
+        <ContactList contacts={contacts} onDeleteContact={this.deleteContact} />
     </div>);
     
 }
