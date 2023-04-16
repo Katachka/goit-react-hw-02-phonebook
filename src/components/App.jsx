@@ -17,7 +17,7 @@ export const App = class App extends Component {
     const { contacts } = this.state;
     const newContact = { id: nanoid(), name, number };
 
-    contacts.some(contact => contact.name === name)
+    contacts.some(contact => contact.name === name.toLowerCase())
       ? Report.warning(
         `${name}`,
         'This user is already in the contact list.',
